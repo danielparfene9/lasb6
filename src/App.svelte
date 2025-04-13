@@ -2,6 +2,22 @@
   import { wins } from './lib/stores/wins.js';
   let newTitle = '';
   let newTag = 'general';
+
+  function addWin() {
+    if (!newTitle.trim()) return;
+    wins.update((list) => [
+      ...list,
+      {
+        id: Date.now(),
+        title: newTitle,
+        tag: newTag,
+        completed: false,
+        date: new Date().toISOString().split('T')[0]
+      }
+    ]);
+    newTitle = '';
+  }
+
 </script>
 
 <main>
@@ -15,7 +31,16 @@
     <option value="social">Social</option>
   </select>
 
-  <button>Add Win</button>
+  <button on:click={addWin}>Add Win</button>
+
+  <hr />
+
+  {#each $wins as win}
+    <div class="win-card">
+      <strong>{win.title}</strong> ({win.tag})
+    </div>
+  {/each}
+
 </main>
 
 <style>
