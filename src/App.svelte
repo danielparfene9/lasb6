@@ -18,6 +18,15 @@
     newTitle = '';
   }
 
+  function removeWin(id) {
+    wins.update((list) => list.filter((w) => w.id !== id));
+  }
+
+  function toggleLike(id) {
+    wins.update((list) =>
+      list.map((w) => w.id === id ? { ...w, completed: !w.completed } : w)
+    );
+  }
 </script>
 
 <main>
@@ -38,6 +47,10 @@
   {#each $wins as win}
     <div class="win-card">
       <strong>{win.title}</strong> ({win.tag})
+      <button on:click={() => toggleLike(win.id)}>
+        {win.completed ? '💖' : '🤍'}
+      </button>
+      <button on:click={() => removeWin(win.id)}>🗑</button>
     </div>
   {/each}
 
