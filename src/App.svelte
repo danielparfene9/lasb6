@@ -1,4 +1,5 @@
 <script>
+  import { wins } from './lib/stores/wins.js';
   let newTitle = '';
   let newTag = 'general';
 </script>
@@ -13,7 +14,7 @@
     <option value="study">Study</option>
     <option value="social">Social</option>
   </select>
-  
+
   <button>Add Win</button>
 </main>
 
