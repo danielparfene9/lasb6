@@ -5,6 +5,16 @@
   let newTag = 'general';
   let filterTag = 'all';
 
+  const quotes = [
+    "Small steps every day lead to big results!",
+    "Celebrate your wins, no matter how small!",
+    "Progress, not perfection.",
+    "Believe you can and you're halfway there.",
+    "One day or day one. You decide."
+  ];
+
+  let randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
   function addWin() {
     if (!newTitle.trim()) return;
     wins.update((list) => [
@@ -46,6 +56,7 @@
 
 <main>
   <h1>Daily Wins Tracker</h1>
+  <p><em>{randomQuote}</em></p>
 
   <select bind:value={filterTag}>
     <option value="all">All</option>
