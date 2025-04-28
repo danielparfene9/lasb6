@@ -52,6 +52,15 @@
     }
     return win.tag === filterTag;
   });
+
+  function startEdit(id) {
+    wins.update(list => list.map(w => w.id === id ? { ...w, editing: true } : w));
+  }
+
+  function saveEdit(id) {
+    wins.update(list => list.map(w => w.id === id ? { ...w, editing: false } : w));
+  }
+
 </script>
 
 <main>
