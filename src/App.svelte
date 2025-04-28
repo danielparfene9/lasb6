@@ -90,7 +90,14 @@
 
   {#each filteredWins as win}
     <div class="win-card">
-      <strong>{win.title}</strong> ({win.tag})
+
+      {#if win.editing}
+        <input bind:value={win.title} on:blur={() => saveEdit(win.id)} on:keydown={(e) => e.key === 'Enter' && saveEdit(win.id)} />
+      {:else}
+        <strong on:dblclick={() => startEdit(win.id)}>{win.title}</strong> ({win.tag})
+      {/if}
+
+      <!-- <strong>{win.title}</strong> ({win.tag}) -->
       <button on:click={() => toggleLike(win.id)}>
         {win.completed ? '💖' : '🤍'}
       </button>
