@@ -63,53 +63,57 @@
 
 </script>
 
-<main>
-  <h1>Daily Wins Tracker</h1>
-  <p><em>{randomQuote}</em></p>
+<main id="app">
+  <div class="tracker-card">
+    <h1>Daily Wins Tracker</h1>
+    <p><em>{randomQuote}</em></p>
 
-  <select bind:value={filterTag}>
-    <option value="all">All</option>
-    <option value="today">Today's Wins</option>
-    <option value="general">General</option>
-    <option value="health">Health</option>
-    <option value="study">Study</option>
-    <option value="social">Social</option>
-  </select>
+    <div class="controls">
+      <select bind:value={filterTag}>
+        <option value="all">All</option>
+        <option value="today">Today's Wins</option>
+        <option value="general">General</option>
+        <option value="health">Health</option>
+        <option value="study">Study</option>
+        <option value="social">Social</option>
+      </select>
 
-  <input bind:value={newTitle} placeholder="What are your plans?" />
-  <select bind:value={newTag}>
-    <option value="general">General</option>
-    <option value="health">Health</option>
-    <option value="study">Study</option>
-    <option value="social">Social</option>
-  </select>
+      <input bind:value={newTitle} placeholder="What are your plans?" />
+      <select bind:value={newTag}>
+        <option value="general">General</option>
+        <option value="health">Health</option>
+        <option value="study">Study</option>
+        <option value="social">Social</option>
+      </select>
 
-  <button on:click={addWin}>Add Win</button>
-
-  <hr />
-
-  {#each filteredWins as win}
-    <div class="win-card">
-
-      {#if win.editing}
-        <input bind:value={win.title} on:blur={() => saveEdit(win.id)} on:keydown={(e) => e.key === 'Enter' && saveEdit(win.id)} />
-      {:else}
-        <strong on:dblclick={() => startEdit(win.id)}>{win.title}</strong> ({win.tag})
-      {/if}
-
-      <!-- <strong>{win.title}</strong> ({win.tag}) -->
-      <button on:click={() => toggleLike(win.id)}>
-        {win.completed ? '💖' : '🤍'}
-      </button>
-      <button on:click={() => removeWin(win.id)}>🗑</button>
+      <button on:click={addWin}>Add Win</button>
     </div>
-  {/each}
 
+    <hr />
 
-  <button on:click={toggleTheme}>
-    Switch to {$theme === 'light' ? 'Dark' : 'Light'} Mode
-  </button>
+    <div class="wins-list">
+      {#each filteredWins as win}
+        <div class="win-card">
 
+          {#if win.editing}
+            <input bind:value={win.title} on:blur={() => saveEdit(win.id)} on:keydown={(e) => e.key === 'Enter' && saveEdit(win.id)} />
+          {:else}
+            <strong on:dblclick={() => startEdit(win.id)}>{win.title}</strong> ({win.tag})
+          {/if}
+
+          <!-- <strong>{win.title}</strong> ({win.tag}) -->
+          <button on:click={() => toggleLike(win.id)}>
+            {win.completed ? '💖' : '🤍'}
+          </button>
+          <button on:click={() => removeWin(win.id)}>🗑</button>
+        </div>
+      {/each}
+    </div>
+
+      <button on:click={toggleTheme}>
+        Switch to {$theme === 'light' ? 'Dark' : 'Light'} Mode
+      </button>
+  </div>
 </main>
 
 <style>
