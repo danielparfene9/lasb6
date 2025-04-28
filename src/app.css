@@ -77,3 +77,120 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+:global(body) {
+  margin: 0;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+:global(:root) {
+  --background: #f9f9f9;
+  --text: #111;
+  --card-bg: white;
+  --card-shadow: rgba(0,0,0,0.1);
+}
+
+:global(body.dark) {
+  --background: #121212;
+  --text: #eee;
+  --card-bg: #1e1e1e;
+  --card-shadow: rgba(255,255,255,0.05);
+}
+
+.tracker-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--card-shadow);
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.quote {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-light);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+input, select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+  border-color: #646cff;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #646cff;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #535bf2;
+}
+
+.wins-list {
+  margin-top: 1rem;
+}
+
+.win-card {
+  background: var(--card-bg);
+  border: 1px solid #ccc;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.win-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 10px var(--card-shadow);
+}
+
+.win-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.theme-switch {
+  margin-top: 2rem;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--text);
+}
