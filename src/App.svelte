@@ -82,14 +82,16 @@
     <p><em>{randomQuote}</em></p>
 
     <div class="controls">
-      <select bind:value={filterTag}>
-        <option value="all">All</option>
-        <option value="today">Today's Wins</option>
-        <option value="general">General</option>
-        <option value="health">Health</option>
-        <option value="study">Study</option>
-        <option value="social">Social</option>
-      </select>
+      <div class="filter-buttons">
+        {#each ['all', 'today', 'general', 'health', 'study', 'social'] as tag}
+          <button
+            on:click={() => filterTag = tag}
+            class:active={filterTag === tag}
+          >
+            {tag === 'all' ? 'All' : tag === 'today' ? "Today's Wins" : tag.charAt(0).toUpperCase() + tag.slice(1)}
+          </button>
+        {/each}
+      </div>
 
       <input bind:value={newTitle} placeholder="What are your plans?" />
       <select bind:value={newTag}>
@@ -115,15 +117,17 @@
               on:blur={(e) => saveEdit(win.id)}
               on:keydown={(e) => e.key === 'Enter' && saveEdit(win.id)}/>
           {:else}
-            <strong on:dblclick={() => startEdit(win.id)}>{win.title}</strong> ({win.tag})
+            <strong on:dblclick={() => startEdit(win.id)}>{win.title}</strong>
           {/if}
         
           <!-- <strong>{win.title}</strong> ({win.tag}) -->
-          <button on:click={() => startEdit(win.id)}>✏️</button>
-          <button on:click={() => toggleLike(win.id)}>
-            {win.completed ? '💖' : '🤍'}
-          </button>
-          <button on:click={() => removeWin(win.id)}>🗑</button>
+          <div class="buttons">
+            <button on:click={() => startEdit(win.id)}>✏️</button>
+            <button on:click={() => toggleLike(win.id)}>
+              {win.completed ? '💖' : '🤍'}
+            </button>
+            <button on:click={() => removeWin(win.id)}>🗑</button>
+          </div>
         </div>
       {/each}
     </div>
