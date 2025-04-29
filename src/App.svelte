@@ -1,10 +1,15 @@
 <script>
   import { wins } from './lib/stores/wins.js';
   import { theme } from './lib/stores/theme.js';
+  import { onMount } from 'svelte';
   let newTitle = '';
   let newTag = 'general';
   let filterTag = 'all';
 
+  onMount(() => {
+    wins.update(list => list.map(w => ({ ...w, editing: false })));
+  });
+  
   const quotes = [
     "Small steps every day lead to big results!",
     "Celebrate your wins, no matter how small!",
