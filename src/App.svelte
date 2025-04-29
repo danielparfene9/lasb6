@@ -1,10 +1,11 @@
 <script>
   import { wins } from './lib/stores/wins.js';
   import { theme } from './lib/stores/theme.js';
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   let newTitle = '';
   let newTag = 'general';
   let filterTag = 'all';
+  let editingInput = null;
 
   onMount(() => {
     wins.update(list => list.map(w => ({ ...w, editing: false })));
@@ -60,6 +61,13 @@
 
   function startEdit(id) {
     wins.update(list => list.map(w => w.id === id ? { ...w, editing: true } : w));
+    
+    tick().then(() => {
+      if (editingInput) {
+        editingInput.focus();
+        editingInput.select();
+      }
+    });
   }
 
   function saveEdit(id) {
@@ -101,12 +109,17 @@
         <div class="win-card">
 
           {#if win.editing}
-            <input bind:value={win.title} on:blur={() => saveEdit(win.id)} on:keydown={(e) => e.key === 'Enter' && saveEdit(win.id)} />
+            <input
+              bind:this={editingInput}
+              bind:value={win.title}
+              on:blur={(e) => saveEdit(win.id)}
+              on:keydown={(e) => e.key === 'Enter' && saveEdit(win.id)}/>
           {:else}
             <strong on:dblclick={() => startEdit(win.id)}>{win.title}</strong> ({win.tag})
           {/if}
-
+        
           <!-- <strong>{win.title}</strong> ({win.tag}) -->
+          <button on:click={() => startEdit(win.id)}>✏️</button>
           <button on:click={() => toggleLike(win.id)}>
             {win.completed ? '💖' : '🤍'}
           </button>
