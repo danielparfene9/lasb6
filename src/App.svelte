@@ -85,7 +85,9 @@
     </div>
 
     <h1>Daily Wins Tracker</h1>
-    <p><em>{randomQuote}</em></p>
+    {#if filteredWins.length > 0}
+      <p><em>{randomQuote}</em></p>
+    {/if}
 
     <div class="controls">
       <div class="filter-buttons">
@@ -136,6 +138,11 @@
           </div>
         </div>
       {/each}
+      {#if filteredWins.length === 0}
+        <div class="empty-placeholder">
+          <em>{randomQuote}</em>
+        </div>
+      {/if}
     </div>
   </div>
 </main>
