@@ -78,6 +78,12 @@
 
 <main id="app">
   <div class="tracker-card">
+    <div class="top-bar">
+      <button on:click={toggleTheme}>
+        Switch to {$theme === 'light' ? 'Dark' : 'Light'} Mode
+      </button>
+    </div>
+
     <h1>Daily Wins Tracker</h1>
     <p><em>{randomQuote}</em></p>
 
@@ -131,10 +137,6 @@
         </div>
       {/each}
     </div>
-
-      <button on:click={toggleTheme}>
-        Switch to {$theme === 'light' ? 'Dark' : 'Light'} Mode
-      </button>
   </div>
 </main>
 
